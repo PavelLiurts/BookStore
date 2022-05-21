@@ -4,11 +4,14 @@ from book.models import Book
 
 User = get_user_model()
 
+#create cart model
 class Cart(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
     )
+
+#calculate total sum dynamically with each request
 
     def total_price(self):
         books = self.books.all()
@@ -16,6 +19,8 @@ class Cart(models.Model):
         for book in books:
             total += book.price
         return total
+
+# create model book in cart
 
 class BookInCart(models.Model):
     book = models.ForeignKey(
@@ -34,6 +39,7 @@ class BookInCart(models.Model):
         max_digits=8,
         decimal_places=2
     )
-
+# return total result
+    
     def __str__(self):
         return f"{self.book.title} * {self.quantity}"
