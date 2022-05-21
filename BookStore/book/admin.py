@@ -30,3 +30,5 @@ class BookResource(resources.ModelResource):
 
     class BookAdmin(ImportExportModelAdmin):
         resource_class = BookResource
+
+    admin.site.register(Book, BookAdmin)
