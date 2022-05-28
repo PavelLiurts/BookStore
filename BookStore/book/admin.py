@@ -1,7 +1,7 @@
 from django.contrib import admin
 from book.models import Book
-from import_export import resources
-from import_export.admin import ImportExportModelAdmin
+#from import_export import resources
+#from import_export.admin import ImportExportModelAdmin
 
 class BookResource(resources.ModelResource):
     class Meta:
