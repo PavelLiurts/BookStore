@@ -1,0 +1,16 @@
+          <p class="z-depth-5">  <div class="card medium "></p>
+              <div class="card-image waves-effect waves-block waves-light">
+                    <a href="{% url 'book:book_detail' obj.pk %}"><img class="activator" src="{{obj.photo.url}}"></a>
+                  <a href="{% url 'book:book_detail' obj.pk %}"><span class="card-title   indigo-text text-lighten-5 pulse">Подробнее</span></a>
+                </div>
+                <div class="card-content">
+                    <p class="flow-text">{{obj.title}}</p>
+                    {% for author in obj.authors.all %}
+                     <p<h7>{{author}}</h7></p>
+                    {% endfor %}
+                    <h7 class="  red-text text-darken-4">Добавить в корзину: {{obj.price}} BYN</h7>
+                    <a href="{% url 'cart:add' obj.pk %}"  class="btn-floating  blue-grey darken-3 pulse "><i class="material-icons">add</i></a>
+                   <p <h7>{{obj.description}}</h7></p>
+                </div>
+            </div>
+

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Список книг </title>
+{% endblock title %}
+
+        <p class="z-depth-5">  <div class="card medium "></p>
+              <div class="card-image waves-effect waves-block waves-light">
+                    <a href="{% url 'book:book_detail' obj.pk %}"><img class="activator" src="{{obj.photo.url}}"></a>
+                  <a href="{% url 'book:book_detail' obj.pk %}"><span class="card-title   indigo-text text-lighten-5 pulse">Подробнее</span></a>
+                </div>
+                <div class="card-content">
+                    <p class="flow-text">{{obj.title}}</p>
+                    <h7 class="  red-text text-darken-4">Добавить в корзину: {{obj.price}} BYN</h7>
+                    <a href="{% url 'cart:add' obj.pk %}" class="btn-floating  blue-grey darken-3 pulse "><i class="material-icons">add</i></a>
+                   <p <h7>{{obj.description}}</h7></p>
+                </div>
+            </div>
+{% block pagination %}
+  {% if is_paginated %}
+      <div class="pagination">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}" class="blue-grey darken-2 btn btn-secondary btn-sm">Назад</a>
+              {% endif %}
+              <span class="page-current">
+                  <h6><p class="blue-grey-text text-darken-4">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p></h6>
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}" class="blue-grey darken-2 btn btn-secondary btn-sm">Следующая</a>
+              {% endif %}
+          </span>
+      </div>
+  {% endif %}
+{% endblock %}

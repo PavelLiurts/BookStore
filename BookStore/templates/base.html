@@ -1,0 +1,112 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    {% block title %}
+    <title>Viajero</title>
+    {% endblock title %}
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+<!-- Navbar-->
+<nav class="blue-grey darken-4" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Viajero Book</a>
+        <ul class="right hide-on-med-and-down">
+            <li><form action="{% url 'search_results' %}"   method="get">
+            <input name="q" type="text white" placeholder="Поиск...">
+            </form>
+            </li>
+            <li><a href="{% url 'book:book_new' %}">Новинки</a></li>
+            <li><a href="{% url 'book:book_popular' %}">Популярное</a></li>
+            {% if user.is_authenticated %}
+            <font color="white">{{ user.get_username }}</font>
+            <a href="{% url 'users:profile_detail' user.profile.pk %}" class="blue-grey darken-2 waves-effect waves-light btn-small"><i
+                    class="material-icons right">account_circle</i>Личный кабинет</a>
+            <a href="{% url 'cart:cart'  %}" class="blue-grey darken-2 waves-effect waves-light btn-small" ><i
+                    class="material-icons right" >shopping_basket</i>Корзина</a>
+            <a href="{% url 'logout'%}?next={{request.path}}" class="blue-grey darken-2 waves-effect waves-light btn-small" ><i
+                    class="material-icons right" >exit_to_app</i>Выйти</a>
+            {% else %}
+            <a href="{% url 'users:create'%}" class="blue-grey darken-2 waves-effect waves-light btn-small "><i class="material-icons right">account_circle</i>Зарегистрироваться</a>
+            <a href="{% url 'login'%}?next={{request.path}}" class="blue-grey darken-2 waves-effect waves-light btn-small"><i
+                    class="material-icons right">account_circle</i>Войти</a>
+            <a href="{% url 'cart:cart'  %}" class="blue-grey darken-2 waves-effect waves-light btn-small" ><i
+                    class="material-icons right" >shopping_basket</i>Корзина</a>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% block body %}
+<div class="container">
+    <div class="row">
+        <!--   Icon Section   -->
+        <div class="row">
+        </div>
+        {% for obj in object_list %}
+        <div class="col s12 m4">{% include "card.html" %}</div>
+        {% endfor %}
+    </div>
+
+{% block pagination %}
+  {% if is_paginated %}
+      <div class="pagination">
+          <span class="page-links">
+              {% if page_obj.has_previous %}
+                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}" class="blue-grey darken-2 btn btn-secondary btn-sm">Назад</a>
+              {% endif %}
+              <span class="page-current">
+                  <h6><p class="blue-grey-text text-darken-4">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</p></h6>
+              </span>
+              {% if page_obj.has_next %}
+                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}" class="blue-grey darken-2 btn btn-secondary btn-sm">Следующая</a>
+              {% endif %}
+          </span>
+      </div>
+  {% endif %}
+{% endblock %}
+
+</div>
+</div>
+</div>
+</div>
+<br><br>
+</div>
+    {% block content %}
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Viajero Book Shop</h5>
+                <p class="grey-text text-lighten-4">BELARUS, MINSK</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Книжный магазин</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" >Курсы валют НБРБ на сегодня:</a></li>
+                    <li><a class="grey-text text-lighten-3" >1 {{ usd.Cur_Abbreviation }} - {{ usd.Cur_OfficialRate }} BYN</a></li>
+                    <li><a class="grey-text text-lighten-3" >1 {{ eur.Cur_Abbreviation }} - {{ eur.Cur_OfficialRate }} BYN</a></li>
+                    <li><a class="grey-text text-lighten-3" >100 {{ rub.Cur_Abbreviation }} - {{ rub.Cur_OfficialRate }} BYN</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2019 Pavel Liurts
+        </div>
+    </div>
+</footer>
+    {% endblock content %}
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'js/materialize.js' %}"></script>
+<script src="{% static 'js/init.js' %}"></script>
+</body>
+{% endblock body %}
+</html>

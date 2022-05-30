@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Список книг </title>
+{% endblock title %}
+
+{% block body %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Номер</th>
+      <th scope="col">Название</th>
+      <th scope="col">Авторы</th>
+      <th scope="col">Серия</th>
+      <th scope="col">Описание</th>
+      <th scope="col">Обложка</th>
+      <th scope="col">Стоимость</th>
+        {% if user.is_authenticated %}
+      {% if perms.books.change_book %}
+        <th scope="col">Редактировать</th>
+      {% endif %}
+        {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in object_list %}
+    <tr>
+      <td>{{obj.id}}</td>
+      <td>{{obj.title}}</td>
+      {% for author in obj.authors.all %}
+      <td>{{author}}</td>
+      {% endfor %}
+      <td>{{obj.serie}}</td>
+      <td>{{obj.description}}</td>
+      <td><img src={{obj.photo.url}} width="70"  </td>
+      <td>{{obj.price}} BYN</td>
+        {% if user.is_authenticated %}
+        {% if perms.books.change_book %}
+        <td><a href="{% url 'book:book_update' obj.pk %}"><i class="material-icons">edit</i></a>
+           {% endif %}
+          {% if perms.books.delete_book %}
+        <a href="{% url 'book:book_delete' obj.pk %}"><i class="material-icons">delete</a></td>
+       {% endif %}
+        {% endif %}
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</table>
+{% endblock body %}

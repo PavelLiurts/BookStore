@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{% endblock title %}
+
+
+{% block body %}
+<h4>Удалить</h4>
+<p method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p<h6> Вы уверены что хотите удалить  "{{ object }}" ?</h6></p>
+    <button type="submit" class=" blue-grey darken-2 btn btn-success">Подтвердить</button>
+</form>
+{% endblock body %}

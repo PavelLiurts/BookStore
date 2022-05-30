@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% endblock title %}
+
+{% block body %}
+
+<h4>Корзина</h4>
+      <table >
+        <thead>
+          <tr>
+              <th>Название книги</th>
+              <th>Количество</th>
+              <th>Цена</th>
+              <th>Изменить количество</th>
+              <th>Удалить позицию</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for book_in_cart in  cart.books.all %}
+          <tr>
+            <td>{{book_in_cart.book.title}}</td>
+            <td>{{book_in_cart.quantity}}</td>
+            <td>{{book_in_cart.price}} BYN</td>
+              <td><a href="update/{{book_in_cart.pk}}"><i class="material-icons">edit</a></td>
+            <td><a href="delete/{{book_in_cart.pk}}"><i class="material-icons">delete</a></td>
+          </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+<h6> Итоговая стоимость: {{cart.total_price}} BYN </h6>
+<p><a href="{% url 'order:create'  %}"class="blue-grey darken-2 waves-effect waves-light btn-small">Перейти к оформлению заказа</a></p>
+{% endblock body %}
+

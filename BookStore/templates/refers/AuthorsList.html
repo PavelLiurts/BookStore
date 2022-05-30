@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock title %}
+
+{% block body %}
+<h3>Список авторов </h3>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Номер</th>
+      <th scope="col">Автор</th>
+        {% if user.is_authenticated %}
+      {% if perms.refers.change_authors %}
+        <th scope="col">Редактировать</th>
+       {% endif %}
+        {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for obj in object_list %}
+    <tr>
+      <th scope="row">{{obj.id}}</th>
+      <td>{{obj.name}}</td>
+        {% if user.is_authenticated %}
+      {% if perms.refers.change_authors %}
+        <td><a href="{% url 'refers:authors_update' obj.pk %}"><i class="material-icons">edit</i></a>
+            {% endif %}
+          {% if perms.refers.delete_authors %}
+        <a href="{% url 'refers:authors_delete' obj.pk %}"><i class="material-icons">delete</a></td>
+      {% endif %}
+        {% endif %}
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</table>
+{% endblock body %}

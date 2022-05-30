@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>{{ object.user.username }}</title>
+{% endblock title %}
+
+{% block body %}
+<div>
+<h5>Пользователь : {{ object.user.username }}</h5>
+<p><b>Имя:</b> {{ object.user.first_name }}</p>
+<p><b>Фамилия:</b> {{ object.user.last_name }}</p>
+<p><b>Email:</b> {{ object.user.email }}</p>
+</div>
+
+  <div class="collection">
+        <a href="{% url 'book:book'  %}" class="blue-grey-text text-darken-2 collection-item">Посмотреть доступные книги на сайте</a>
+        <a href="{% url 'refers:authors'  %}" class="blue-grey-text text-darken-2 collection-item">Посмотреть список авторов на сайте</a>
+        <a href="{% url 'refers:series'  %}" class="blue-grey-text text-darken-2 collection-item">Посмотреть список серий на сайте</a>
+        <a href="{% url 'refers:genres'  %}" class="blue-grey-text text-darken-2 collection-item">Посмотреть список жанров на сайте</a>
+        <a href="{% url 'refers:publishinghouses'  %}" class="blue-grey-text text-darken-2 collection-item">Посмотреть список издательств на сайте</a>
+        {% if perms.books.change_book %}
+        <a href="{% url 'book:book'  %}" class="blue-grey-text text-darken-2 collection-item">Редактировать книги</a>
+        {% endif %}
+        {% if perms.book.add_book %}
+        <a href="{% url 'book:book_create'  %}" class="blue-grey-text text-darken-2 collection-item">Добавить новую книгу</a>
+        {% endif %}
+        {% if perms.refers.add_authors %}
+        <a href="{% url 'refers:authors_create'  %}" class="blue-grey-text text-darken-2 collection-item">Добавить нового автора</a>
+        {% endif %}
+        {% if perms.refers.add_series %}
+        <a href="{% url 'refers:series_create'  %}" class="blue-grey-text text-darken-2 collection-item">Добавить новую серию</a>
+        {% endif %}
+        {% if perms.refers.add_genres %}
+        <a href="{% url 'refers:genres_create'  %}" class="blue-grey-text text-darken-2 collection-item">Добавить новый жанр</a>
+        {% endif %}
+        {% if perms.refers.add_publishinghouses %}
+        <a href="{% url 'refers:publishinghouses_create'  %}" class="blue-grey-text text-darken-2 collection-item">Добавить новое издательство</a>
+        {% endif %}
+      </div>
+
+{% endblock body %}

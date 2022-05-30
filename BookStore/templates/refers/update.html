@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+{% endblock title %}
+
+
+{% block body %}
+<h4>Обновить</h4>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+     <p<h6> Введите новое значение для  "{{ object }}" и нажмите "Обновить"</h6></p>
+    <button type="submit" class="blue-grey darken-2  btn btn-success">Обновить</button>
+</form>
+{% endblock body %}

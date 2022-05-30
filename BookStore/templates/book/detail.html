@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{object.title}}</title>
+{% endblock title %}
+
+
+{% block body %}
+
+<ul class="list-group">
+    <li class="list-group-item"><img src="{{object.photo.url}}" width="250" height="330"></li>
+    <li class="list-group-item"><b>{{object.title}}</b></li>
+    <li class="list-group-item"><b>Цена:</b>{{object.price}} BYN</li>
+    {% for obj in object.authors.all %}
+    <li class="list-group-item"><b>Авторы:</b>{{obj}}</li>
+    {% endfor %}
+    <li class="list-group-item"><b>Серия:</b>{{object.serie}}</li>
+    {% for obj in object.genres.all %}
+    <li class="list-group-item"><b>Жанр:</b>{{obj}}</li>
+     {% endfor %}
+    <li class="list-group-item"><b>Рейтинг:</b>{{object.description}}</li>
+    <li class="list-group-item"><b>Дата издания:</b>{{object.year_publishing}}</li>
+    <li class="list-group-item"><b>Количество страниц:</b>{{object.pages}}</li>
+    <li class="list-group-item"><b>Переплет:</b>{{object.binding}}</li>
+    <li class="list-group-item"><b>Формат:</b>{{object.format}}</li>
+    <li class="list-group-item"><b>ISBN:</b>{{object.isbn}}</li>
+    <li class="list-group-item"><b>Вес:</b>{{object.weight}}</li>
+    <li class="list-group-item"><b>Возрастные ограничения:</b>{{object.age_restrictions}}</li>
+    <li class="list-group-item"><b>Издательство:</b>{{object.publishing_house}}</li>
+    <li class="list-group-item"><b>Количество:</b>{{object.quantity}}</li>
+    <li class="list-group-item"><b>Рейтинг:</b>{{object.rating}}</li>
+</ul>
+
+{% endblock body %}
+
+

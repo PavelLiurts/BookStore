@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% endblock title %}
+
+
+{% block body %}
+<h1>Оформить заказ</h1>
+    Сумма заказа{{object.price}} BYN <br>
+    Стоимость доставки: {{object.delivery_price}} BYN
+
+<form method="post" action="{% url 'order:create' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="blue-grey darken-2 waves-effect waves-light btn-small">Оформить заказ</button>
+</form>
+
+{% endblock body %}
